@@ -1,18 +1,9 @@
-import { Routes, Route, Link } from 'react-router-dom'
-
-import ChartHome from "./components/ChartHome"
-import HomePage from "./components/HomePage"
-
-
-
-
+import Main from './components/main/Main';
 function App() {
-
-
 
   return (
     <div className="App">
-      
+        <Main />
     </div>
   );
 }

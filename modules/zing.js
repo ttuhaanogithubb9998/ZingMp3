@@ -100,7 +100,7 @@ class Zing {
             PATH_INFO + sha256(`ctime=${CTIME}id=${id}version=${VERSION}`),
             SECRET_KEY
         );
-        let infoUrl = `${URL}${PATH_INFO}?id=${id}&ctime=${CTIME}&version=${VERSION}&sig=${signature_song}&apiKey=${API_KEY}`;
+        let infoUrl = `${URL}${PATH_INFO}?id=${id}&ctime=${CTIME}&version=${VERSION}&sig=${signature_info}&apiKey=${API_KEY}`;
         return infoUrl
     }
 
@@ -117,19 +117,19 @@ class Zing {
         })
     }
 
-    getUrlTop100(id){
+    getUrlTop100(){
         let CTIME = Math.floor(Date.now() / 1000);
         let signature_top100 = hmacSha512(
-            PATH_TOP + sha256(`ctime=${CTIME}id=${id}version=${VERSION}`),
+            PATH_TOP + sha256(`ctime=${CTIME}version=${VERSION}`),
             SECRET_KEY
         )
-        let urlTop100 = `${URL}${PATH_TOP}?ctime=${CTIME}&version=${VERSION}&sig=${signature_song}&apiKey=${API_KEY}`;
+        let urlTop100 = `${URL}${PATH_TOP}?ctime=${CTIME}&version=${VERSION}&sig=${signature_top100}&apiKey=${API_KEY}`;
         return urlTop100;
     }
 
-    getTop100(id,callback){
+    getTop100(callback){
         this.setCookie(cookie=>{
-            axios.get(this.getUrlTop100(id),{
+            axios.get(this.getUrlTop100(),{
                 headers: {
                     Cookie: cookie
                 }
