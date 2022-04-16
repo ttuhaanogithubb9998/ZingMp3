@@ -5,19 +5,19 @@ import { BiSkipPrevious, BiSkipNext } from 'react-icons/bi'
 import { FiVolume2, FiRepeat } from 'react-icons/fi'
 
 
-function Audio({ linkSong, linkThumbnail, title, artists }) {
+function Audio({ linkSong, linkThumbnail, title, artists, handleControls, status, indexSong, handleActiveList }) {
 
-    // console.log("artists", artists)
-    console.log("linkSong", linkSong)
     const [audio, setAudio] = useState();
     let mouseChange = false;
+    // console.log(status)
 
-    useEffect(() => { console.log(audio); setAudio(document.getElementById("audio-tag-1")) }, []);
+    useEffect(() => { setAudio(document.getElementById("audio-tag-1")) }, []);
 
     useEffect(() => {
         if (audio) {
             const duration = audio.parentElement.querySelector("#duration")
             audio.onloadeddata = () => {
+                // console.log("loaded");
                 let s, m;
                 s = formatTime(audio.duration).s;
                 m = formatTime(audio.duration).m;
@@ -26,6 +26,9 @@ function Audio({ linkSong, linkThumbnail, title, artists }) {
                 } else {
                     duration.textContent = "00:00"
                 }
+
+                audio.play();
+
             }
         }
     }, [audio]);
@@ -59,10 +62,19 @@ function Audio({ linkSong, linkThumbnail, title, artists }) {
                     } else {
                         timeNow.textContent = "00:00"
                     }
+
+                    if (width == 100) {
+                        if (status === "repeat") {
+                            audio.currentTime = 0;
+                            audio.play();
+                        } else {
+                            handleControls.next(audio, indexSong);
+                        }
+                    }
                 }
             }
         }
-    }, [audio, mouseChange])
+    }, [audio, mouseChange, handleControls, status, indexSong])
 
     useEffect(() => {
         if (audio) {
@@ -78,11 +90,10 @@ function Audio({ linkSong, linkThumbnail, title, artists }) {
 
             }
         }
-    })
+    }, [audio])
 
 
     useEffect(() => {
-        console.log('ádfsd')
         if (audio) {
             const timeLine = audio.parentElement.querySelector("#time-line");
             const lineNow = audio.parentElement.querySelector("#line-now");
@@ -107,7 +118,11 @@ function Audio({ linkSong, linkThumbnail, title, artists }) {
 
                         s = formatTime(audio.duration * width / 100).s;
                         m = formatTime(audio.duration * width / 100).m;
-                        timeNow.textContent = m + ":" + s;
+                        if (m && s) {
+                            timeNow.textContent = m + ":" + s;
+                        } else {
+                            timeNow.textContent = "00:00"
+                        }
                     }
                 }
                 document.onmouseup = eUp => {
@@ -131,7 +146,7 @@ function Audio({ linkSong, linkThumbnail, title, artists }) {
             }
 
         }
-    }, [audio]);
+    }, [audio, handleControls, status]);
 
 
     useEffect(() => {
@@ -203,10 +218,10 @@ function Audio({ linkSong, linkThumbnail, title, artists }) {
     return (
         <div className="audio">
             <audio id="audio-tag-1" className="m-auto my-5" src={linkSong} />
-            <div className="player-controls-container  flex justify-between items-center bg-[#170f23] p-2">
-                <div className="flex items-center">
+            <div className={`player-controls-container ease-in duration-300 flex justify-between items-center  p-2`}>
+                <div className="flex items-center grow ">
                     <div className="mr-2">
-                        <figure className="h-[64px] w-[64px] rounded overflow-hidden">
+                        <figure onClick={() => handleActiveList()} className=" cursor-pointer h-[64px] w-[64px] rounded overflow-hidden">
                             <img src={linkThumbnail} />
                         </figure>
                     </div>
@@ -221,12 +236,12 @@ function Audio({ linkSong, linkThumbnail, title, artists }) {
                 </div>
                 <div className="player-controls-bar">
                     <div className="flex justify-center text-zinc-50">
-                        <button className="mx-1 justify-center flex items-center w-[25px] h-[25px] rounded-full hover:bg-[#271b38]"><BsShuffle size="12px" /></button>
-                        <button className="mx-1 justify-center flex items-center w-[25px] h-[25px] rounded-full hover:bg-[#271b38]"><BiSkipPrevious /></button>
+                        <button onClick={() => handleControls.shuffle()} className={`${status === "shuffle" && "text-[#a231da]"} mx-1 justify-center flex items-center w-[25px] h-[25px] rounded-full hover:bg-[#271b38]`}><BsShuffle size="12px" /></button>
+                        <button onClick={() => handleControls.previous(audio, indexSong)} className="mx-1 justify-center flex items-center w-[25px] h-[25px] rounded-full hover:bg-[#271b38]"><BiSkipPrevious /></button>
                         <button id="btn-play" className=" justify-center flex items-center w-[28px] h-[28px] rounded-full hover:text-[#a231da]"><BsPlayCircle size="20px" /></button>
                         <button id="btn-pause" className=" hidden  justify-center items-center w-[28px] h-[28px] rounded-full hover:text-[#a231da]"><BsPauseCircle size="20px" /></button>
-                        <button className="mx-1 justify-center flex items-center w-[25px] h-[25px] rounded-full hover:bg-[#271b38]"><BiSkipNext /></button>
-                        <button className="mx-1 justify-center flex items-center w-[25px] h-[25px] rounded-full hover:bg-[#271b38]"><FiRepeat size="12px" /></button>
+                        <button onClick={() => handleControls.next(audio, indexSong)} className="mx-1 justify-center flex items-center w-[25px] h-[25px] rounded-full hover:bg-[#271b38]"><BiSkipNext /></button>
+                        <button onClick={() => handleControls.repeat()} className={`${status === "repeat" && "text-[#a231da]"} mx-1 justify-center flex items-center w-[25px] h-[25px] rounded-full hover:bg-[#271b38]`}><FiRepeat size="12px" /></button>
                     </div>
                     <div className="text-zinc-50 flex text-[12px] grow justify-between items-center group cursor-pointer">
                         <span id="time-now">00:00</span>
@@ -239,9 +254,8 @@ function Audio({ linkSong, linkThumbnail, title, artists }) {
                         </div>
                         <span id="duration">00:00</span>
                     </div>
-
                 </div>
-                <div className="text-zinc-50 flex items-center group cursor-pointer ">
+                <div className="text-zinc-50 flex items-center group cursor-pointer ml-4">
                     <div><FiVolume2 /></div>
                     <div className="h-5 flex items-center">
                         <div id="volume-line" className="w-[50px] bg-gray-700 h-[2px] mx-[2px]  group-hover:h-[3px]">
@@ -256,4 +270,4 @@ function Audio({ linkSong, linkThumbnail, title, artists }) {
     );
 }
 
-export default Audio;
+export default React.memo(Audio);

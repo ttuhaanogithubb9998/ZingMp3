@@ -1,3 +1,4 @@
+const { getSongs } = require("../modules/zing");
 const ZingMp3 = require("../modules/zing");
 
 
@@ -8,11 +9,20 @@ class ZingController {
             res.json(data);
         })
     }
+
+    getSongs(req, res) {
+        ZingMp3.getSongs(req.query.id, data => {
+            res.json(data)
+        })
+    }
+
     getPlaylist(req, res) {
         ZingMp3.getPlaylist(req.query.id, (data) => {
             res.json(data)
         })
     }
+
+
 
     getTop100(req, res) {
         ZingMp3.getTop100((data) => {
@@ -39,4 +49,4 @@ class ZingController {
     }
 }
 
-module.exports = new ZingController ();
+module.exports = new ZingController();

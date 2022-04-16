@@ -2,9 +2,9 @@ import React from 'react';
 
 import ItemChannel from './ItemChannel';
 
-function Channel({ dataChannel,description }) {
+function Channel({ dataChannel,description,handleChangeIdAlbum }) {
 
-    // console.log(dataChannel)
+    // console.log("dataChannel",dataChannel)
 
     return (
         <div className="channel">
@@ -14,7 +14,7 @@ function Channel({ dataChannel,description }) {
                     dataChannel !== undefined &&
                     dataChannel.items.map((item, i) => {
                         if(i>=5)return ""
-                        return <ItemChannel  description={description} key={i} dataItem={item} />
+                        return <ItemChannel handleChangeIdAlbum={handleChangeIdAlbum}  description={description} key={i} dataItem={item} />
                     })
                 }
             </div>

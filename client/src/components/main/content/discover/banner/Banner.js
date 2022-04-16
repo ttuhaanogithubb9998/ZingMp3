@@ -3,9 +3,9 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
 import ItemBanner from './ItemBanner'
-function Banner({ dataBanner ,handlePlaySong}) {
+function Banner({ dataBanner ,handleChangeSong,handleChangeList}) {
 
-    console.log("dataBanner",dataBanner);
+    // console.log("dataBanner",dataBanner);
 
     const responsive = {
         desktop: {
@@ -47,7 +47,9 @@ function Banner({ dataBanner ,handlePlaySong}) {
             >
                 {dataBanner !== undefined &&
                     dataBanner.items.map((banner, i) => {
-                        return <ItemBanner handlePlaySong={handlePlaySong} key={i} banner={banner} />
+                        if(banner.type===1){
+                            return <ItemBanner handleChangeList={handleChangeList} handleChangeSong={handleChangeSong} key={i} banner={banner} />
+                        }
                     })
                 }
             </Carousel>

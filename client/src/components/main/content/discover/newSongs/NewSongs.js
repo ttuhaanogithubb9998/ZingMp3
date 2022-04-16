@@ -4,7 +4,7 @@ import 'react-multi-carousel/lib/styles.css';
 
 import ItemSong from './ItemSong'
 
-function NewSongs({ dataNewSongs }) {
+function NewSongs({ dataNewSongs,handleChangeSong,handleChangeList }) {
     // console.log(dataNewSongs);
     const responsive = {
         desktop: {
@@ -36,10 +36,10 @@ function NewSongs({ dataNewSongs }) {
                 ssr={true} // means to render carousel on server-side.
                 infinite={true}
                 autoPlay={true}
-                autoPlaySpeed={2000}
+                autoPlaySpeed={4000}
                 keyBoardControl={true}
                 customTransition="transform 1000ms ease-in-out"
-                transitionDuration={500}
+                transitionDuration={0}
                 containerClass="carousel-container"
                 removeArrowOnDeviceType={["tablet", "mobile"]}
                 dotListClass="custom-dot-list-style"
@@ -47,7 +47,7 @@ function NewSongs({ dataNewSongs }) {
             >
                 {dataNewSongs !== undefined &&
                     dataNewSongs.items.map((item, i) => {
-                        return <ItemSong key={i} data={item} index={i}/>
+                        return <ItemSong handleChangeList={handleChangeList} handleChangeSong={handleChangeSong} key={i} data={item} index={i}/>
                     })
                 }
             </Carousel>

@@ -1,23 +1,37 @@
-import React, {useState,useEffect,useCallback,useMemo} from 'react';
-import axios from 'axios'
+import React, { useState, useCallback } from 'react';
 
 import Navbar from './navbar/Navbar'
 import Content from './content/Content'
+import ListPlays from './listPlays/ListPlay'
 
 
 function Main(props) {
 
-    const [dataContent, setDataContent] = useState("ZZ9BA689");
-    const handlePlaySong = useCallback((encodeId)=>{    
-        console.log(encodeId);
-        setDataContent(encodeId);
-    })  
-    // axios.get('/api/')
+    const [idSong, setIdSong] = useState("");
+    const [list, setList] = useState({});
+
+
+    const handleChangeSong = useCallback((encodeId) => {
+        setIdSong(encodeId);
+    }, [])
+
+    const handleChangeList = useCallback((list) => {
+        setList(list);
+    }, [])
 
     return (
-        <div className = "main grid grid-cols-11 gap-0 " >
+        <div className="main grid grid-cols-9 gap-0 scroll-none" >
             <Navbar />
-            <Content dataContent={dataContent} handlePlaySong={handlePlaySong} />
+            <Content
+                idSong={idSong}
+                handleChangeList={handleChangeList}
+                handleChangeSong={handleChangeSong}
+            />
+            <ListPlays
+                idSong={idSong}
+                changeSong={handleChangeSong}
+                list={list}
+            />
         </div>
     );
 }

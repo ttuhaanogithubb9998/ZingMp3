@@ -1,5 +1,6 @@
 const zing = require('../controllers/ZingController')
-const express = require('express')
+const express = require('express');
+const { route } = require('express/lib/application');
 const router = express.Router();
 
 // get song
@@ -7,6 +8,9 @@ router.get("/song", zing.getSong)
 
 // get playlist
 router.get("/playlist", zing.getPlaylist)
+
+// get songs (playlist)
+router.get("/songs",zing.getSongs)
 
 // get top100
 router.get("/top100", zing.getTop100)

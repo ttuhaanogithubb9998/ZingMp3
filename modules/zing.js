@@ -6,6 +6,7 @@ const VERSION = "1.4.11";
 const VERSION_COOKIE = "1411";
 const URL = "https://zingmp3.vn";
 const PATH_SONG = "/api/v2/song/get/streaming";
+const PATH_SONGS = "/api/v2/recommend/get/songs"
 const PATH_PLAYLIST = "/api/v2/page/get/playlist";
 const PATH_TOP = "/api/v2/page/get/top-100";
 const PATH_INFO = "/api/v2/song/get/info";
@@ -68,6 +69,32 @@ class Zing {
             })
         })
     }
+
+
+    getUrlSongs(id) {
+        let CTIME = Math.floor(Date.now() / 1000);
+        let signature_songs = hmacSha512(
+            PATH_SONGS + sha256(`count=20ctime=${CTIME}id=${id}version=${VERSION}`),
+            SECRET_KEY
+        )
+        let songUrls = `${URL}${PATH_SONGS}?id=${id}&start=0&count=20&ctime=${CTIME}&version=${VERSION}&sig=${signature_songs}&apiKey=${API_KEY}`;
+        return songUrls;
+    }
+
+    getSongs(id, callback) {
+        this.setCookie(cookie => {
+            axios.get(this.getUrlSongs(id), {
+                headers: {
+                    Cookie: cookie,
+                }
+            }).then(res => {
+                console.log("song",res);
+                callback(res.data);
+            })
+        })
+    }
+
+
 
     getUrlPlaylist(id) {
         let CTIME = Math.floor(Date.now() / 1000);
