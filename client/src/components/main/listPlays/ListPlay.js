@@ -8,7 +8,7 @@ import { setDataClient, getDataClient } from '../DataClient'
 import { BsChevronDown } from 'react-icons/bs'
 
 
-function ListPlay({ idSong, list,changeSong }) {
+function ListPlay({ idSong, list, changeSong }) {
 
     // console.log("list",list)
 
@@ -26,19 +26,20 @@ function ListPlay({ idSong, list,changeSong }) {
     const [indexSong, setIndexSong] = useState(indexS || -1)
     const [activeList, setActiveList] = useState(false)
 
-    const [dataList, setDataList] = useState([]);
-    
+    const [dataList, setDataList] = useState();
+
 
     useEffect(() => {
-        axios.get(`/api/${typeList}?id=${encodeIdList}`)
-            .then(res => {
-                if (res.data.data.items){
-                    setDataList(res.data.data.items);
-                }else if(res.data.data.song){
-                    setDataList(res.data.data.song.items);
-                }
-            })
-            .catch(res => console.log("error", typeList))
+        if (encodeIdList.length > 0)
+            axios.get(`/api/${typeList}?id=${encodeIdList}`)
+                .then(res => {
+                    if (res.data.data.items) {
+                        setDataList(res.data.data.items);
+                    } else if (res.data.data.song) {
+                        setDataList(res.data.data.song.items);
+                    }
+                })
+                .catch(res => console.log("error", typeList))
     }, [encodeIdList, typeList]);
 
 
@@ -112,6 +113,7 @@ function ListPlay({ idSong, list,changeSong }) {
                             <BsChevronDown />
                         </div>
                     </div>
+                    
                     <List
                         dataList={dataList}
                         itemActive={encodeIdSong}

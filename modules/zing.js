@@ -2,12 +2,15 @@ const sha256 = require('crypto-js/sha256');
 const hmacSha512 = require('crypto-js/hmac-sha512');
 const axios = require('axios');
 
-const VERSION = "1.4.11";
+const VERSION = "1.6.22";
 const VERSION_COOKIE = "1411";
 const URL = "https://zingmp3.vn";
 const PATH_SONG = "/api/v2/song/get/streaming";
 const PATH_SONGS = "/api/v2/recommend/get/songs"
 const PATH_PLAYLIST = "/api/v2/page/get/playlist";
+const PATH_NEWRELEASE = "/api/v2/page/get/newrelease-chart";
+const PATH_GENRE = "/api/v2/page/get/hub-home";
+const PATH_GENRE_DETAIL = "/api/v2/page/get/hub-detail";
 const PATH_TOP = "/api/v2/page/get/top-100";
 const PATH_INFO = "/api/v2/song/get/info";
 const PATH_CHARTHOME = "/api/v2/page/get/chart-home";
@@ -186,6 +189,77 @@ class Zing {
                 }
             }).then(res=>{
                 console.log("chart",res)
+                callback(res.data)
+            })
+        })
+    }
+
+    getUrlNewRelease(){
+        let CTIME = Math.floor(Date.now()/ 1000);
+        let signature_chart = hmacSha512(
+            PATH_NEWRELEASE+ sha256(`ctime=${CTIME}version=${VERSION}`),
+            SECRET_KEY
+        )
+        let urlChart = `${URL}${PATH_NEWRELEASE}?ctime=${CTIME}&version=${VERSION}&sig=${signature_chart}&apiKey=${API_KEY}`;
+        return urlChart;
+    }
+
+
+    getNewRelease(callback){
+        this.setCookie(cookie=>{
+            axios.get(this.getUrlNewRelease(),{
+                headers:{
+                    Cookie: cookie
+                }
+            }).then(res=>{
+                console.log("chart",res)
+                callback(res.data)
+            })
+        })
+    }
+
+    getUrlGenre(){
+        let CTIME = Math.floor(Date.now()/ 1000);
+        let signature_chart = hmacSha512(
+            PATH_GENRE+ sha256(`ctime=${CTIME}version=${VERSION}`),
+            SECRET_KEY
+        )
+        let urlChart = `${URL}${PATH_GENRE}?ctime=${CTIME}&version=${VERSION}&sig=${signature_chart}&apiKey=${API_KEY}`;
+        return urlChart;
+    }
+
+
+    getGenre(callback){
+        this.setCookie(cookie=>{
+            axios.get(this.getUrlGenre(),{
+                headers:{
+                    Cookie: cookie
+                }
+            }).then(res=>{
+                console.log("chart",res)
+                callback(res.data)
+            })
+        })
+    }
+
+    getUrlGenreDetail(id){
+        let CTIME = Math.floor(Date.now() / 1000);
+        let signature = hmacSha512(
+            PATH_GENRE_DETAIL + sha256(`ctime=${CTIME}id=${id}version=${VERSION}`),
+            SECRET_KEY
+        )
+        let url = `${URL}${PATH_GENRE_DETAIL}?id=${id}&ctime=${CTIME}&version=${VERSION}&sig=${signature}&apiKey=${API_KEY}`
+        return url
+    }
+
+    getGenreDetail(id,callback){
+        this.setCookie(cookie=>{
+            axios.get(this.getUrlGenreDetail(id),{
+                headers:{
+                    Cookie: cookie
+                }
+            })
+            .then(res=>{
                 callback(res.data)
             })
         })

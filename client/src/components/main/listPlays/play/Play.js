@@ -5,13 +5,20 @@ import Audio from './Audio'
 
 function Play({ encodeId, handleChangeSong, indexSong, handleActiveList, activeList, dataList }) {
 
-
+    const list = [];
+    dataList.forEach((item)=>{
+        if(item.streamingStatus===1){
+            list.push(item)
+        }
+    })
     // console.log("dataList", dataList);   
 
     const [dataAudio, setDataAudio] = useState({});
     const [encodeIdSong, setEncodeIdSong] = useState(encodeId);
     const [status, setStatus] = useState("normal");
     const [handleControls, setHandleControls] = useState({});
+
+
     useEffect(() => {
         setEncodeIdSong(encodeId);
     }, [encodeId]);
@@ -40,9 +47,9 @@ function Play({ encodeId, handleChangeSong, indexSong, handleActiveList, activeL
 
     useEffect(() => {
 
-        if (dataList.length > 0) {
+        if (list.length > 0) {
             let Ids = [];
-            dataList.map((data) => {
+            list.map((data) => {
                 Ids.push(data.encodeId)
             })
 
@@ -69,14 +76,14 @@ function Play({ encodeId, handleChangeSong, indexSong, handleActiveList, activeL
 
             const next = (audio, index) => {
                 if (status === "shuffle") {
-                    if (index === IdsShf.length - 1) {
+                    if (index >= IdsShf.length - 1) {
                         handleChangeSong(IdsShf[0], 0)
                     } else {
                         handleChangeSong(IdsShf[index + 1], index + 1)
                     }
 
                 } else if (status === "normal") {
-                    if (index === Ids.length - 1) {
+                    if (index >= Ids.length - 1) {
                         handleChangeSong(Ids[0], 0)
                     } else {
                         handleChangeSong(Ids[index + 1], index + 1)
@@ -88,14 +95,14 @@ function Play({ encodeId, handleChangeSong, indexSong, handleActiveList, activeL
             }
             const previous = (audio, index) => {
                 if (status === "shuffle") {
-                    if (index < 1) {
+                    if (index < 1||index>IdsShf.length - 1) {
                         handleChangeSong(IdsShf[IdsShf.length - 1], IdsShf.length - 1)
                     } else {
                         handleChangeSong(IdsShf[index - 1], index - 1)
                     }
 
                 } else if (status === "normal") {
-                    if (index < 1) {
+                    if (index < 1||index>Ids.length - 1) {
                         handleChangeSong(Ids[Ids.length - 1], Ids.length - 1)
                     } else {
                         handleChangeSong(Ids[index - 1], index - 1)

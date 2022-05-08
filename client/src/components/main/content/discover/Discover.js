@@ -7,7 +7,7 @@ import Channel from './channel/Channel'
 import NewSongs from './newSongs/NewSongs';
 
 function Discover({ handleChangeSong, handleChangeList,handleChangeIdAlbum }) {
-    const [data, setData] = useState([])
+    const [data, setData] = useState()
 
     useEffect(() => {
         axios.get('/api/page-home')
@@ -18,18 +18,14 @@ function Discover({ handleChangeSong, handleChangeList,handleChangeIdAlbum }) {
     }, [])
 
     return (
-        <div className="discover col-span-10 m-4 pb-[90px]">
-            {data.length > 0 &&
+        <div className="discover col-span-10 p-4 pb-[90px] bg-[#170f23]">
+            {data&&
                 <>
                     {data.map((item, i) => {
                         if (item.sectionId === "hSlider" && item.sectionType === "banner") {
                             return <Banner key={i} handleChangeList={handleChangeList} handleChangeSong={handleChangeSong} dataBanner={data[0]} />
-                        } else if (item.sectionId === "hSuggestPl" && item.sectionType === "playlist") {
-                            return <Channel handleChangeIdAlbum={handleChangeIdAlbum}  key={i} dataChannel={item} />
-                        } else if (item.sectionId === "hAutoTheme2" && item.sectionType === "playlist") {
-                            return <Channel  handleChangeIdAlbum={handleChangeIdAlbum} key={i} description="link" dataChannel={item} />
-                        } else if (item.sectionId === "h100" && item.sectionType === "playlist") {
-                            return <Channel handleChangeIdAlbum={handleChangeIdAlbum} key={i} description="link" dataChannel={item} />
+                        } else if (item.sectionType === "playlist") {
+                            return <Channel handleChangeIdAlbum={handleChangeIdAlbum}   key={i} dataChannel={item} />
                         } else if (item.sectionId === "hNewrelease" && item.sectionType === "newReleaseChart") {
                             return <NewSongs handleChangeList={handleChangeList} handleChangeSong={handleChangeSong} key={i} dataNewSongs={item} />
                         }

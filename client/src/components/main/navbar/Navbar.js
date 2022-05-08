@@ -33,7 +33,7 @@ function Navbar() {
                 </Link>
             </div>
             <div className="navbar-item  my-[7px] text-gray-400 hover:text-zinc-100 cursor-pointer">
-                <Link to="/">
+                <Link to="/moi-phat-hanh">
                     <div className="flex items-center">
                         <IoMusicalNotesOutline size="25px" />
                         <span className="font-semibold ml-[4px]">Nhạc mới</span>
@@ -41,7 +41,7 @@ function Navbar() {
                 </Link>
             </div>
             <div className="navbar-item  my-[7px] text-gray-400 hover:text-zinc-100 cursor-pointer">
-                <Link to="/">
+                <Link to="/genre">
                     <div className="flex items-center">
                         <BiCategoryAlt size="25px" />
                         <span className="font-semibold ml-[4px]">Thể loại</span>
@@ -49,7 +49,7 @@ function Navbar() {
                 </Link>
             </div>
             <div className="navbar-item  my-[7px] text-gray-400 hover:text-zinc-100 cursor-pointer">
-                <Link to="/">
+                <Link to="/top100">
                     <div className="flex items-center">
                         <BsStar size="25px" />
                         <span className="font-semibold ml-[4px]">Top 100</span>

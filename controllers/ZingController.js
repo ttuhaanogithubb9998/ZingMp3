@@ -30,6 +30,25 @@ class ZingController {
         })
     }
 
+    getNewRelease(req, res) {
+        ZingMp3.getNewRelease((data) => {
+            res.json(data)
+        })
+    }
+
+
+    getGenre(req, res) {
+        ZingMp3.getGenre((data) => {
+            res.json(data)
+        })
+    }
+
+    getGenreDetail(req, res) {
+        ZingMp3.getGenreDetail(req.query.id, (data) => {
+            res.json(data)
+        })
+    }
+
     getPageHome(req, res) {
         ZingMp3.getPageHome((data) => {
             res.json(data)
