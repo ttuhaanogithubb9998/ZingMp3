@@ -294,7 +294,7 @@ function ZingChart({ handleChangeList, idSong, handleChangeSong }) {
                 }
             </div>
             <div className="text-center">
-                <div className={`${showAll && "hidden"} rounded-full border border-violet-900 w-[100px] cursor-pointer m-[auto] my-4`} onClick={() => setShowAll(pre => !pre)} >Xem top 100</div>
+                <div className={`${showAll && "hidden"} rounded-full border border-violet-900 w-[100px] cursor-pointer m-[auto] my-4 text-[13px]`} onClick={() => setShowAll(pre => !pre)} >Xem top 100</div>
             </div>
         </div>
     );
