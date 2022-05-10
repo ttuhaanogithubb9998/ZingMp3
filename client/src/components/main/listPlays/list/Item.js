@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { Link } from 'react-router-dom'
 import { FiMusic } from 'react-icons/fi'
 import { ImPlay3 } from 'react-icons/im'
 import { RiVipFill } from 'react-icons/ri'
@@ -51,7 +52,15 @@ function Item({ dataItem, handleChangeSong, itemActive, index, changeList, vip }
                         <div className="m-0 p-0 ">
                             {
                                 dataItem.artists && dataItem.artists.map((artist, i) => {
-                                    return <a key={i} className="text-stone-400 font-bold text-[9px] hover:text-fuchsia-900 " href={artist.link}><span className="leading-4">{i !== 0 && ", "}{artist.name} </span></a>
+                                    let link;
+                                    if (artist.link.length >= "/nghe-si/".length) {
+                                        if (artist.link.slice(0, 9) === "/nghe-si/")
+                                            link = artist.link
+                                        else
+                                            link = "/nghe-si" + artist.link
+                                    } else
+                                        link = "/nghe-si" + artist.link
+                                    return <Link to={link} key={i} className="text-stone-400 font-bold text-[9px] hover:text-fuchsia-900 "><span className="leading-4">{i !== 0 && ", "}{artist.name} </span></Link>
                                 })
                             }
                         </div>

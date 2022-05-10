@@ -16,7 +16,7 @@ function Content({ handleChangeSong, idSong, handleChangeList }) {
         <div className="content col-span-8  bg-[#170f23]  overflow-y-scroll h-screen scroll-none">
             <Routes>
                 <Route path="/discover/*" element={<Discover handleChangeList={handleChangeList} handleChangeSong={handleChangeSong} />} />
-                <Route path="/*" element={<Discover handleChangeList={handleChangeList} handleChangeSong={handleChangeSong} />} />
+                <Route path="/" element={<Discover handleChangeList={handleChangeList} handleChangeSong={handleChangeSong} />} />
                 <Route path="/zing-chart" element={<ZingChart idSong={idSong} handleChangeList={handleChangeList} handleChangeSong={handleChangeSong} />}/>
                 <Route path="/album/:s/:idAlbum" element={<Album idSong={idSong} handleChangeList={handleChangeList} handleChangeSong={handleChangeSong} />} />
                 <Route path="/moi-phat-hanh/*" element={<NewRelease idSong={idSong} handleChangeList={handleChangeList} handleChangeSong={handleChangeSong} />} />

@@ -3,7 +3,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
 import ItemBanner from './ItemBanner'
-function Banner({ dataBanner ,handleChangeSong,handleChangeList}) {
+function Banner({ dataBanner, handleChangeSong, handleChangeList }) {
 
     // console.log("dataBanner",dataBanner);
 
@@ -26,7 +26,7 @@ function Banner({ dataBanner ,handleChangeSong,handleChangeList}) {
     }
     return (
         <div className="banner">
-            
+
             <Carousel
                 arrows={true}
                 swipeable={false}
@@ -47,9 +47,7 @@ function Banner({ dataBanner ,handleChangeSong,handleChangeList}) {
             >
                 {dataBanner !== undefined &&
                     dataBanner.items.map((banner, i) => {
-                        if(banner.type===1){
-                            return <ItemBanner handleChangeList={handleChangeList} handleChangeSong={handleChangeSong} key={i} banner={banner} />
-                        }
+                        return <ItemBanner handleChangeList={handleChangeList} handleChangeSong={handleChangeSong} key={i} banner={banner} />
                     })
                 }
             </Carousel>

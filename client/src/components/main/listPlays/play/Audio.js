@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import {Link} from 'react-router-dom'
 
 import { BsShuffle, BsPlayCircle, BsPauseCircle } from 'react-icons/bs'
 import { BiSkipPrevious, BiSkipNext } from 'react-icons/bi'
@@ -229,7 +230,7 @@ function Audio({ linkSong, linkThumbnail, title, artists, handleControls, status
                         <div className="text-zinc-50 text-[12px] font-semibold">{title}</div>
                         <div className="leading-[0px]">
                             {artists  && artists.map((artist, i) => {
-                                return <a key={i} className="text-stone-400 font-bold text-[10px] hover:text-fuchsia-900 " href={artist.link}><span className="leading-4">{i !== 0 && ", "}{artist.name} </span></a>
+                                return <Link key={i} className="text-stone-400 font-bold text-[10px] hover:text-fuchsia-900 " to={`${artist.link}`}><span className="leading-4">{i !== 0 && ", "}{artist.name} </span></Link>
                             })}
                         </div>
                     </div>
