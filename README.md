@@ -8,7 +8,7 @@ In the project directory, you can run:
 ### `npm i`
 ### `cd client`
 ### `npm i`
-### `npm build`
+### `npm run build`
 ### `cd ../`
 ### `npm start`
 Runs the app in the development mode.\
