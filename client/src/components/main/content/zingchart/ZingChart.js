@@ -28,6 +28,9 @@ function ZingChart({ handleChangeList, idSong, handleChangeSong }) {
                 });
 
                 setOptions({
+                    credits: {
+                        enabled: false
+                      },
                     accessibility: {
                         enabled: false,
                     },
@@ -231,9 +234,7 @@ function ZingChart({ handleChangeList, idSong, handleChangeSong }) {
 
                 setData(data)
 
-
             })
-
     }, [])
 
     Highcharts.addEvent(Highcharts.Axis, 'afterDrawCrosshair', function ({
