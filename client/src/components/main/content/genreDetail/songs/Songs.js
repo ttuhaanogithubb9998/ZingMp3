@@ -3,7 +3,7 @@ import React,{useCallback} from 'react';
 import Item from '../../../listPlays/list/Item'
 
 function Songs({ handleChangeSong, handleChangeList, idSong ,data}) {
-    console.log("songs",data)
+    // console.log("songs",data)
     const changeList = useCallback((idList) => {
         handleChangeList({ type: "songs", id: idList })
     },[])

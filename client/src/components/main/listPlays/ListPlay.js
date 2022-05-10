@@ -30,6 +30,7 @@ function ListPlay({ idSong, list, changeSong }) {
 
 
     useEffect(() => {
+        // console.log("test",encodeIdList)
         if (encodeIdList.length > 0)
             axios.get(`/api/${typeList}?id=${encodeIdList}`)
                 .then(res => {
@@ -37,6 +38,8 @@ function ListPlay({ idSong, list, changeSong }) {
                         setDataList(res.data.data.items);
                     } else if (res.data.data.song) {
                         setDataList(res.data.data.song.items);
+                    }else if(res.data.data.RTChart){
+                        setDataList(res.data.data.RTChart.items);
                     }
                 })
                 .catch(res => console.log("error", typeList))
@@ -62,6 +65,7 @@ function ListPlay({ idSong, list, changeSong }) {
 
 
     useEffect(() => {
+        // console.log("idlist",list.id)
         if (list.id) {
             setEncodeIdList(list.id);
             setDataClient((pre) => {

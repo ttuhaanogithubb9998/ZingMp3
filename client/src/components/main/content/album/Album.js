@@ -26,7 +26,7 @@ function Album({ handleChangeSong, handleChangeList, idSong }) {
 
 
     const changeList = useCallback(() => {
-        handleChangeList({ type: "playlist", id: idAlbum })
+        handleChangeList({ type: "playlist", id: idAlbum.slice(0,8) })
     }, [idAlbum])
 
 

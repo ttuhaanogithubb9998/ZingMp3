@@ -35,6 +35,7 @@ function NewRelease({ handleChangeList, idSong, handleChangeSong }) {
                         return <div key={i} className="flex items-center">
                             <div className="mr-3 text-gray-100">{i + 1}</div>
                             <Item
+                                vip={item.streamingStatus === 2}
                                 changeList={changeList}
                                 index={i}
                                 itemActive={idSong}

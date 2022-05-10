@@ -11,9 +11,9 @@ function Container({ handleChangeSong, handleChangeList, idSong ,data}) {
         <div>
             {data.map((item, i) => {
                 if (item.sectionType === "playlist")
-                    return <Channel  dataChannel={item} />
+                    return <Channel key={i}  dataChannel={item} />
                 else if (item.sectionType === "song")
-                    return <Songs idSong={idSong}  handleChangeList={handleChangeList} handleChangeSong={handleChangeSong} data = {item}  />
+                    return <Songs key={i} idSong={idSong}  handleChangeList={handleChangeList} handleChangeSong={handleChangeSong} data = {item}  />
             })}
         </div>
     );

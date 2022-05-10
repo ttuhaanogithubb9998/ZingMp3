@@ -25,7 +25,7 @@ function Navbar() {
                 </Link>
             </div>
             <div className="navbar-item  my-[7px] text-gray-400 hover:text-zinc-100 cursor-pointer">
-                <Link to="/">
+                <Link to="/zing-chart">
                     <div className="flex items-center">
                         <MdOutlineMultilineChart size="25px" />
                         <span className="font-semibold ml-[4px]">#zingchart</span>
