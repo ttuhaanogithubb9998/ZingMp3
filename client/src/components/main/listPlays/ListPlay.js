@@ -27,18 +27,18 @@ function ListPlay({ idSong, list, changeSong }) {
     const [activeList, setActiveList] = useState(false)
 
     const [dataList, setDataList] = useState();
-
+    // console.log("asdf",encodeIdSong)
 
     useEffect(() => {
         // console.log("test",encodeIdList)
-        if (encodeIdList.length > 0)
+        if (typeList.length > 0)
             axios.get(`/api/${typeList}?id=${encodeIdList}`)
                 .then(res => {
                     if (res.data.data.items) {
                         setDataList(res.data.data.items);
                     } else if (res.data.data.song) {
                         setDataList(res.data.data.song.items);
-                    }else if(res.data.data.RTChart){
+                    } else if (res.data.data.RTChart) {
                         setDataList(res.data.data.RTChart.items);
                     }
                 })
@@ -53,6 +53,7 @@ function ListPlay({ idSong, list, changeSong }) {
 
     useEffect(() => {
         if (idSong) {
+            // console.log(idSong)
             setEncodeIdSong(idSong);
             setDataClient((pre) => {
                 return {
@@ -117,7 +118,7 @@ function ListPlay({ idSong, list, changeSong }) {
                             <BsChevronDown />
                         </div>
                     </div>
-                    
+
                     <List
                         dataList={dataList}
                         itemActive={encodeIdSong}
