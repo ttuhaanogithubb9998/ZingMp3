@@ -27,9 +27,15 @@ function Play({ fftSize, myAudio, encodeId, handleChangeSong, indexSong, handleA
         axios.get(`/api/song?id=${encodeIdSong}`)
             .then(res => {
                 // console.log("Play", res)
-                setDataAudio((pre) => {
-                    return { ...pre, linkSong: res.data.data[128] }
-                });
+                if (res.data.err == 0) {
+                    setDataAudio((pre) => {
+                        if (res.data.data[320] === "VIP")
+                            return { ...pre, linkSong: res.data.data[128] }
+                        return { ...pre, linkSong: res.data.data[320] }
+                    });
+                } else {
+                    alert(res.data.msg);
+                }
             })
         axios.get(`/api/info?id=${encodeIdSong}`)
             .then(res => {
