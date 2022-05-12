@@ -5,19 +5,10 @@ class Bar {
         this.width = width;
         this.height = height;
         this.color = color;
-        this.volume = 0;
     }
 
     draw(context, fftSize) {
-        // context.strokeStyle = this.color;
-        // context.save();
-        // context.rotate(this.y*0.03)
-        // context.beginPath();
-        // context.moveTo(this.x+100,this.y);
-        // context.lineTo(this.y,this.height)
-        // context.stroke();
-
-        // context.restore();
+        
 
         context.strokeStyle = this.color;
         context.save();
@@ -51,7 +42,7 @@ class Bar {
 
         context.restore();
     }
-    update(height, volume) {
+    update(height) {
         // console.log(volume);
         if (height * 70 > this.height) {
             this.height = height * 70;
@@ -59,11 +50,6 @@ class Bar {
             this.height -= this.height * 0.03
         }
 
-        if (volume > this.volume) {
-            this.volume = volume
-        } else {
-            this.volume -= this.volume * 0.06
-        }
     }
 }
 

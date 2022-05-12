@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { BsShuffle, BsPlayCircle, BsPauseCircle } from 'react-icons/bs'
 import { BiSkipPrevious, BiSkipNext } from 'react-icons/bi'
 import { FiVolume2, FiRepeat } from 'react-icons/fi'
+import SubCanvas from './SubCanvas'
 
-
-function Audio({ linkSong, linkThumbnail, title, artists, handleControls, status, indexSong, handleActiveList ,handleFirstPlay}) {
+function Audio({ activeList,fftSize, myAudio, linkSong, linkThumbnail, title, artists, handleControls, status, indexSong, handleActiveList, handleFirstPlay }) {
 
     const [audio, setAudio] = useState();
     let mouseChange = false;
@@ -221,7 +221,7 @@ function Audio({ linkSong, linkThumbnail, title, artists, handleControls, status
         <div className="audio">
             <audio crossOrigin="anonymous" id="audio-tag-1" className="m-auto my-5" src={linkSong} />
             <div className={`player-controls-container ease-in duration-300 flex justify-between items-center  p-2`}>
-                <div className="flex items-center grow ">
+                <div className="flex items-center  ">
                     <div className="mr-2">
                         <figure onClick={() => handleActiveList()} className=" cursor-pointer h-[64px] w-[64px] rounded overflow-hidden">
                             <img src={linkThumbnail} />
@@ -230,39 +230,47 @@ function Audio({ linkSong, linkThumbnail, title, artists, handleControls, status
                     <div className="grow text-left">
                         <div className="text-zinc-50 text-[12px] font-semibold">{title}</div>
                         <div className="leading-[0px]">
-                            {artists  && artists.map((artist, i) => {
+                            {artists && artists.map((artist, i) => {
                                 return <Link key={i} className="text-stone-400 font-bold text-[10px] hover:text-fuchsia-900 " to={`${artist.link}`}><span className="leading-4">{i !== 0 && ", "}{artist.name} </span></Link>
                             })}
                         </div>
                     </div>
                 </div>
-                <div className="player-controls-bar">
-                    <div className="flex justify-center text-zinc-50">
-                        <button onClick={() => handleControls.shuffle()} className={`${status === "shuffle" && "text-[#a231da]"} mx-1 justify-center flex items-center w-[25px] h-[25px] rounded-full hover:bg-[#271b38]`}><BsShuffle size="12px" /></button>
-                        <button onClick={() => handleControls.previous(audio, indexSong)} className="mx-1 justify-center flex items-center w-[25px] h-[25px] rounded-full hover:bg-[#271b38]"><BiSkipPrevious /></button>
-                        <button id="btn-play" className=" justify-center flex items-center w-[28px] h-[28px] rounded-full hover:text-[#a231da]"><BsPlayCircle size="20px" /></button>
-                        <button id="btn-pause" className=" hidden  justify-center items-center w-[28px] h-[28px] rounded-full hover:text-[#a231da]"><BsPauseCircle size="20px" /></button>
-                        <button onClick={() => handleControls.next(audio, indexSong)} className="mx-1 justify-center flex items-center w-[25px] h-[25px] rounded-full hover:bg-[#271b38]"><BiSkipNext /></button>
-                        <button onClick={() => handleControls.repeat()} className={`${status === "repeat" && "text-[#a231da]"} mx-1 justify-center flex items-center w-[25px] h-[25px] rounded-full hover:bg-[#271b38]`}><FiRepeat size="12px" /></button>
-                    </div>
-                    <div className="text-zinc-50 flex text-[12px] grow justify-between items-center group cursor-pointer">
-                        <span id="time-now">00:00</span>
-                        <div className="h-5 flex items-center">
-                            <div onClick={() => { }} id="time-line" className="w-[200px] bg-gray-700 h-[2px] mx-[2px]  group-hover:h-[3px]">
-                                <div id="line-now" className="w-0 bg-white h-[2px] group-hover:h-[3px] flex justify-end items-center" >
-                                    <div className="group-hover:h-[6px] group-hover:w-[6px] group-hover:rounded-full group-hover:bg-white"></div>
+                <div>
+                {!activeList&&<SubCanvas
+                        myAudio={myAudio}
+                        fftSize={fftSize}
+                    />}
+                </div>
+                <div className="player-controls-bar flex">
+                    <div>
+                        <div className="flex justify-center text-zinc-50">
+                            <button onClick={() => handleControls.shuffle()} className={`${status === "shuffle" && "text-[#a231da]"} mx-1 justify-center flex items-center w-[25px] h-[25px] rounded-full hover:bg-[#271b38]`}><BsShuffle size="12px" /></button>
+                            <button onClick={() => handleControls.previous(audio, indexSong)} className="mx-1 justify-center flex items-center w-[25px] h-[25px] rounded-full hover:bg-[#271b38]"><BiSkipPrevious /></button>
+                            <button id="btn-play" className=" justify-center flex items-center w-[28px] h-[28px] rounded-full hover:text-[#a231da]"><BsPlayCircle size="20px" /></button>
+                            <button id="btn-pause" className=" hidden  justify-center items-center w-[28px] h-[28px] rounded-full hover:text-[#a231da]"><BsPauseCircle size="20px" /></button>
+                            <button onClick={() => handleControls.next(audio, indexSong)} className="mx-1 justify-center flex items-center w-[25px] h-[25px] rounded-full hover:bg-[#271b38]"><BiSkipNext /></button>
+                            <button onClick={() => handleControls.repeat()} className={`${status === "repeat" && "text-[#a231da]"} mx-1 justify-center flex items-center w-[25px] h-[25px] rounded-full hover:bg-[#271b38]`}><FiRepeat size="12px" /></button>
+                        </div>
+                        <div className="text-zinc-50 flex text-[12px] grow justify-between items-center group cursor-pointer">
+                            <span id="time-now">00:00</span>
+                            <div className="h-5 flex items-center">
+                                <div onClick={() => { }} id="time-line" className="w-[200px] bg-gray-700 h-[2px] mx-[2px]  group-hover:h-[3px]">
+                                    <div id="line-now" className="w-0 bg-white h-[2px] group-hover:h-[3px] flex justify-end items-center" >
+                                        <div className="group-hover:h-[6px] group-hover:w-[6px] group-hover:rounded-full group-hover:bg-white"></div>
+                                    </div>
                                 </div>
                             </div>
+                            <span id="duration">00:00</span>
                         </div>
-                        <span id="duration">00:00</span>
                     </div>
-                </div>
-                <div className="text-zinc-50 flex items-center group cursor-pointer ml-4">
-                    <div><FiVolume2 /></div>
-                    <div className="h-5 flex items-center">
-                        <div id="volume-line" className="w-[50px] bg-gray-700 h-[2px] mx-[2px]  group-hover:h-[3px]">
-                            <div id="volume-now" className="w-[100%] bg-white h-[2px] group-hover:h-[3px] flex justify-end items-center" >
-                                <div className="group-hover:h-[6px] group-hover:w-[6px] group-hover:rounded-full group-hover:bg-white"></div>
+                    <div className="text-zinc-50 flex items-center group cursor-pointer ml-4">
+                        <div><FiVolume2 /></div>
+                        <div className="h-5 flex items-center">
+                            <div id="volume-line" className="w-[50px] bg-gray-700 h-[2px] mx-[2px]  group-hover:h-[3px]">
+                                <div id="volume-now" className="w-[100%] bg-white h-[2px] group-hover:h-[3px] flex justify-end items-center" >
+                                    <div className="group-hover:h-[6px] group-hover:w-[6px] group-hover:rounded-full group-hover:bg-white"></div>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useLayoutEffect } from 'react';
 import axios from 'axios'
 
 import Play from './play/Play';
 import List from './list/List';
 import Canvas from './play/Canvas';
+import MyAudio from './play/audioContext/myAudio'
+
 import { setDataClient, getDataClient } from '../DataClient'
 
 import { BsChevronDown } from 'react-icons/bs'
@@ -17,6 +19,7 @@ function ListPlay({ idSong, list, changeSong }) {
     const codeList = getDataClient().encodeIdList;
     const type = getDataClient().listType;
     const indexS = getDataClient().indexSong;
+    const fftSize = 512;
 
 
 
@@ -26,15 +29,30 @@ function ListPlay({ idSong, list, changeSong }) {
     const [typeList, setTypeList] = useState(type);
     const [indexSong, setIndexSong] = useState(indexS || -1)
     const [activeList, setActiveList] = useState(false)
-    const [isPlayFirst, setIsPlay] =useState(false);
-    
+    const [isPlayFirst, setIsPlay] = useState(false);
+
+    const [myAudio, setMyAudio] = useState();
+    const [elementAudio, setEleAUdio] = useState();
+
     const [dataList, setDataList] = useState();
     // console.log("asdf",encodeIdSong)
 
-    const handleFirstPlay = useCallback(()=>{
+    useLayoutEffect(() => {
+        setEleAUdio(document.getElementById('audio-tag-1'))
+    }, [encodeIdSong, dataList])
+
+    useEffect(() => {
+        // console.log(elementAudio)
+        if (elementAudio) {
+            isPlayFirst && setMyAudio(new MyAudio(elementAudio, fftSize));
+        }
+    }, [elementAudio, isPlayFirst])
+
+
+    const handleFirstPlay = useCallback(() => {
         setIsPlay(true)
-    },[])
-    
+    }, [])
+
     useEffect(() => {
         // console.log("test",encodeIdList)
         if (typeList.length > 0)
@@ -124,13 +142,15 @@ function ListPlay({ idSong, list, changeSong }) {
                             <BsChevronDown />
                         </div>
                     </div>
-                    <Canvas isPlayFirst = {isPlayFirst} activeList={activeList} />
+                   { activeList&&<Canvas fftSize={fftSize} myAudio={myAudio} />}
                     <List
                         dataList={dataList}
                         itemActive={encodeIdSong}
                         handleChangeSong={handleChangeSong}
                     />
                     < Play
+                        myAudio={myAudio}
+                        fftSize={fftSize}
                         handleFirstPlay={handleFirstPlay}
                         dataList={dataList}
                         activeList={activeList}

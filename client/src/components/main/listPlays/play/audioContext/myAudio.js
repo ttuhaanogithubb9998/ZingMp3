@@ -20,8 +20,11 @@ class MyAudio {
     }
 
     getSubSamples(){
-        this.analyser.getByteFrequencyData(this.dataArray);
-        let normSample = [...this.dataArray].map(e => e / 128 - 1);
+        let subArray = new Uint8Array(16)
+        let arr = subArray
+        // let arr = this.dataArray
+        this.analyser.getByteFrequencyData(arr);
+        let normSample = [...arr].map(e => e / 128 - 1);
         return normSample;
     }
     getVolume() {

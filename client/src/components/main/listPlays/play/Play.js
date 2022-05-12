@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import Audio from './Audio'
 
-function Play({ encodeId, handleChangeSong, indexSong, handleActiveList, activeList, dataList, handleFirstPlay }) {
+function Play({ fftSize, myAudio, encodeId, handleChangeSong, indexSong, handleActiveList, activeList, dataList, handleFirstPlay }) {
 
     const list = [];
     dataList.forEach((item) => {
@@ -145,8 +145,11 @@ function Play({ encodeId, handleChangeSong, indexSong, handleActiveList, activeL
         <div className={`play absolute  inset-x-0 bottom-0 ${!activeList && "bg-[#120c1c]"}`}>
             {encodeId &&
                 <Audio
+                    fftSize={fftSize}
+                    myAudio={myAudio}
                     handleFirstPlay={handleFirstPlay}
                     handleActiveList={handleActiveList}
+                    activeList={activeList}
                     status={status}
                     handleControls={handleControls}
                     indexSong={indexSong}
