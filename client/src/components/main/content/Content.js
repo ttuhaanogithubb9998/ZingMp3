@@ -11,7 +11,6 @@ import ZingChart from './zingchart/ZingChart';
 
 function Content({ handleChangeSong, idSong, handleChangeList }) {
 
-
     return (
         <div className="content col-span-8  bg-[#170f23]  overflow-y-scroll h-screen scroll-none">
             <Routes>

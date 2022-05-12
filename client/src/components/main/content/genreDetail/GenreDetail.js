@@ -55,4 +55,4 @@ function GenreDetail({ handleChangeList, idSong, handleChangeSong }) {
     );
 }
 
-export default GenreDetail;
+export default React.memo(GenreDetail);

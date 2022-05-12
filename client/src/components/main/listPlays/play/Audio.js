@@ -6,7 +6,7 @@ import { BiSkipPrevious, BiSkipNext } from 'react-icons/bi'
 import { FiVolume2, FiRepeat } from 'react-icons/fi'
 
 
-function Audio({ linkSong, linkThumbnail, title, artists, handleControls, status, indexSong, handleActiveList }) {
+function Audio({ linkSong, linkThumbnail, title, artists, handleControls, status, indexSong, handleActiveList ,handleFirstPlay}) {
 
     const [audio, setAudio] = useState();
     let mouseChange = false;
@@ -46,6 +46,7 @@ function Audio({ linkSong, linkThumbnail, title, artists, handleControls, status
             audio.onplay = () => {
                 btnPlay.style.display = "none";
                 btnPause.style.display = "flex";
+                handleFirstPlay();
             }
 
             audio.ontimeupdate = () => {
@@ -218,7 +219,7 @@ function Audio({ linkSong, linkThumbnail, title, artists, handleControls, status
 
     return (
         <div className="audio">
-            <audio id="audio-tag-1" className="m-auto my-5" src={linkSong} />
+            <audio crossOrigin="anonymous" id="audio-tag-1" className="m-auto my-5" src={linkSong} />
             <div className={`player-controls-container ease-in duration-300 flex justify-between items-center  p-2`}>
                 <div className="flex items-center grow ">
                     <div className="mr-2">

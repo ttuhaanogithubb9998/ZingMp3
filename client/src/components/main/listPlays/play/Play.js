@@ -3,11 +3,11 @@ import axios from 'axios'
 
 import Audio from './Audio'
 
-function Play({ encodeId, handleChangeSong, indexSong, handleActiveList, activeList, dataList }) {
+function Play({ encodeId, handleChangeSong, indexSong, handleActiveList, activeList, dataList, handleFirstPlay }) {
 
     const list = [];
-    dataList.forEach((item)=>{
-        if(item.streamingStatus===1){
+    dataList.forEach((item) => {
+        if (item.streamingStatus === 1) {
             list.push(item)
         }
     })
@@ -95,14 +95,14 @@ function Play({ encodeId, handleChangeSong, indexSong, handleActiveList, activeL
             }
             const previous = (audio, index) => {
                 if (status === "shuffle") {
-                    if (index < 1||index>IdsShf.length - 1) {
+                    if (index < 1 || index > IdsShf.length - 1) {
                         handleChangeSong(IdsShf[IdsShf.length - 1], IdsShf.length - 1)
                     } else {
                         handleChangeSong(IdsShf[index - 1], index - 1)
                     }
 
                 } else if (status === "normal") {
-                    if (index < 1||index>Ids.length - 1) {
+                    if (index < 1 || index > Ids.length - 1) {
                         handleChangeSong(Ids[Ids.length - 1], Ids.length - 1)
                     } else {
                         handleChangeSong(Ids[index - 1], index - 1)
@@ -145,6 +145,7 @@ function Play({ encodeId, handleChangeSong, indexSong, handleActiveList, activeL
         <div className={`play absolute  inset-x-0 bottom-0 ${!activeList && "bg-[#120c1c]"}`}>
             {encodeId &&
                 <Audio
+                    handleFirstPlay={handleFirstPlay}
                     handleActiveList={handleActiveList}
                     status={status}
                     handleControls={handleControls}

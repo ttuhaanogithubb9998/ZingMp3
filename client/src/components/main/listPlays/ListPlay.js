@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import Play from './play/Play';
 import List from './list/List';
+import Canvas from './play/Canvas';
 import { setDataClient, getDataClient } from '../DataClient'
 
 import { BsChevronDown } from 'react-icons/bs'
@@ -25,10 +26,15 @@ function ListPlay({ idSong, list, changeSong }) {
     const [typeList, setTypeList] = useState(type);
     const [indexSong, setIndexSong] = useState(indexS || -1)
     const [activeList, setActiveList] = useState(false)
-
+    const [isPlayFirst, setIsPlay] =useState(false);
+    
     const [dataList, setDataList] = useState();
     // console.log("asdf",encodeIdSong)
 
+    const handleFirstPlay = useCallback(()=>{
+        setIsPlay(true)
+    },[])
+    
     useEffect(() => {
         // console.log("test",encodeIdList)
         if (typeList.length > 0)
@@ -118,13 +124,14 @@ function ListPlay({ idSong, list, changeSong }) {
                             <BsChevronDown />
                         </div>
                     </div>
-
+                    <Canvas isPlayFirst = {isPlayFirst} activeList={activeList} />
                     <List
                         dataList={dataList}
                         itemActive={encodeIdSong}
                         handleChangeSong={handleChangeSong}
                     />
                     < Play
+                        handleFirstPlay={handleFirstPlay}
                         dataList={dataList}
                         activeList={activeList}
                         handleActiveList={handleActiveList}

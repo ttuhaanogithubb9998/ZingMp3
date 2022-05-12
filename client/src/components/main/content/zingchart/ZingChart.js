@@ -301,4 +301,4 @@ function ZingChart({ handleChangeList, idSong, handleChangeSong }) {
     );
 }
 
-export default ZingChart;
+export default React.memo(ZingChart);

@@ -36,4 +36,4 @@ function Discover({ handleChangeSong, handleChangeList,handleChangeIdAlbum }) {
     );
 }
 
-export default Discover;
+export default React.memo(Discover);

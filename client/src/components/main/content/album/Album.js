@@ -69,4 +69,4 @@ function Album({ handleChangeSong, handleChangeList, idSong }) {
     );
 }
 
-export default Album;
+export default React.memo(Album);

@@ -51,4 +51,4 @@ function NewRelease({ handleChangeList, idSong, handleChangeSong }) {
     );
 }
 
-export default NewRelease;
+export default React.memo(NewRelease);
