@@ -3,10 +3,9 @@ import React, { useLayoutEffect, useEffect, useState } from 'react';
 import Bar from './audioContext/bar'
 // import SubBar from './audioContext/subBar'
 import Snail from './snail/Snail';
+import Karaoke from './karaoke/Karaoke'
 
-
-function Canvas({myAudio,fftSize }) {
-
+function Canvas({ myAudio, fftSize, dataKara }) {
     // console.log(myAudio);
 
     const [canvas, setCanvas] = useState();
@@ -28,7 +27,7 @@ function Canvas({myAudio,fftSize }) {
                 }
             }
             createBars();
-            
+
             let animateID;
 
             const animate = () => {
@@ -41,7 +40,7 @@ function Canvas({myAudio,fftSize }) {
                 ctx.save();
                 ctx.beginPath();
 
-                let gradient = ctx.createLinearGradient(0, 0, 0, canvas.height/1.7);
+                let gradient = ctx.createLinearGradient(0, 0, 0, canvas.height / 1.7);
                 gradient.addColorStop(0, 'red');
                 gradient.addColorStop(0.2, 'yellow');
                 gradient.addColorStop(0.4, 'green');
@@ -75,18 +74,23 @@ function Canvas({myAudio,fftSize }) {
 
             }
             animate();
-            return ()=>{
+            return () => {
                 cancelAnimationFrame(animateID);
             }
         }
-    }, [ canvas, myAudio])
+    }, [canvas, myAudio])
 
 
-    
+
 
     return (
         <div className="top-[40px] bottom-[90px] absolute left-[10px] right-[400px] overflow-hidden">
             <canvas width="500" height="500" className="absolute inset-0" id="canvas" ></canvas>
+            <div className="absolute inset-x-0 bottom-[0] h-[200px] ">
+                {dataKara && <Karaoke
+                    dataKara={dataKara}
+                />}
+            </div>
         </div>
     );
 }

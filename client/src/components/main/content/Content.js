@@ -14,6 +14,7 @@ function Content({ handleChangeSong, idSong, handleChangeList }) {
     return (
         <div className="content col-span-8  bg-[#170f23]  overflow-y-scroll h-screen scroll-none">
             <Routes>
+                <Route path = '/*' element={<div className="text-zinc-50 text-[30px] text-center ">Page này chưa hoàn thiện</div>}/>
                 <Route path="/discover/*" element={<Discover handleChangeList={handleChangeList} handleChangeSong={handleChangeSong} />} />
                 <Route path="/" element={<Discover handleChangeList={handleChangeList} handleChangeSong={handleChangeSong} />} />
                 <Route path="/zing-chart" element={<ZingChart idSong={idSong} handleChangeList={handleChangeList} handleChangeSong={handleChangeSong} />}/>

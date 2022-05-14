@@ -1,5 +1,6 @@
 const zing = require('../controllers/ZingController')
 const express = require('express');
+const { route } = require('express/lib/router');
 const router = express.Router();
 
 // get song
@@ -31,5 +32,8 @@ router.get("/page-home", zing.getPageHome)
 
 // get info song
 router.get("/info", zing.getInfo)
+
+//get lyric song
+router.get("/lyric",zing.getLyric)
 
 module.exports = router

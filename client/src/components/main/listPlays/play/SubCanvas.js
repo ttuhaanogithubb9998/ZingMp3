@@ -29,19 +29,11 @@ function SubCanvas({ myAudio, fftSize }) {
 
             const animate = () => {
 
-                let volume = myAudio.getVolume();
                 let samples = myAudio.getSubSamples();
                 ctx.clearRect(0, 0, canvasSub.width, canvasSub.height);
 
                 ctx.save();
-                // ctx.translate(canvasSub.width/4, canvasSub.height / 2);
                 ctx.translate(canvasSub.height + 150, canvasSub.height / 1.2);
-
-                // ctx.rotate(-1.5707963268)
-                // ctx.rotate(-0.7853981634)
-                // ctx.scale(0.45 + volume * 0.03, 0.45 + volume * 0.03);
-                // ctx.scale(0.45,0.45);
-
 
                 bars.forEach((bar, i) => {
                     bar.update(samples[i])

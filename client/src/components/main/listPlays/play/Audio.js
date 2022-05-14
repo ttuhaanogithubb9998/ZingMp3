@@ -37,19 +37,8 @@ function Audio({ activeList,fftSize, myAudio, linkSong, linkThumbnail, title, ar
     useEffect(() => {
         if (audio) {
 
-            const btnPlay = audio.parentElement.querySelector("#btn-play");
-            const btnPause = audio.parentElement.querySelector("#btn-pause");
-            btnPlay.onclick = () => {
-                audio.play();
-            }
-
-            audio.onplay = () => {
-                btnPlay.style.display = "none";
-                btnPause.style.display = "flex";
-                handleFirstPlay();
-            }
-
-            audio.ontimeupdate = () => {
+            audio.ontimeupdate = (e) => {
+                // console.log(e.target,audio)
                 if (!mouseChange) {
                     const timeNow = audio.parentElement.querySelector("#time-now");
                     const lineNow = audio.parentElement.querySelector("#line-now");
@@ -91,6 +80,17 @@ function Audio({ activeList,fftSize, myAudio, linkSong, linkThumbnail, title, ar
                 btnPause.style.display = "none";
 
             }
+
+
+            btnPlay.onclick = () => {
+                audio.play();
+            }
+
+            audio.onplay = () => {
+                btnPlay.style.display = "none";
+                btnPause.style.display = "flex";
+                handleFirstPlay();
+            }
         }
     }, [audio])
 
@@ -127,6 +127,8 @@ function Audio({ activeList,fftSize, myAudio, linkSong, linkThumbnail, title, ar
                         }
                     }
                 }
+
+
                 document.onmouseup = eUp => {
                     if (mouseDown) {
                         let x = eUp.clientX - eDown.target.getBoundingClientRect().left
@@ -136,7 +138,7 @@ function Audio({ activeList,fftSize, myAudio, linkSong, linkThumbnail, title, ar
                         width = width < 1 ? 0 : width;
                         lineNow.style.width = width + "%";
                         audio.currentTime = audio.duration / 100 * width;
-
+                        // console.log(audio.currentTime)
                         let s, m;
                         s = formatTime(audio.currentTime).s;
                         m = formatTime(audio.currentTime).m;
@@ -148,7 +150,7 @@ function Audio({ activeList,fftSize, myAudio, linkSong, linkThumbnail, title, ar
             }
 
         }
-    }, [audio, handleControls, status]);
+    }, [audio, handleControls, status,indexSong]);
 
 
     useEffect(() => {

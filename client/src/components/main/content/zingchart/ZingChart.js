@@ -19,7 +19,7 @@ function ZingChart({ handleChangeList, idSong, handleChangeSong }) {
     useEffect(() => {
         axios.get('/api/chart-home')
             .then(res => {
-                console.log(res.data.data);
+                // console.log(res.data.data);
 
                 let data = res.data.data;
                 let categories = data.RTChart.chart.times.map((time, i) => {
@@ -201,10 +201,8 @@ function ZingChart({ handleChangeList, idSong, handleChangeSong }) {
                             },
                             artists: data.RTChart.items[2].artists.reduce((pre, cur, i) => {
                                 if (i == 0) return pre + cur.name
-                                console.log(pre)
                                 return pre + ", " + cur.name
                             }, ""),
-                            s: () => { console.log(data.RTChart.items[2].artists) },
                             img: data.RTChart.items[2].thumbnail,
                             name: data.RTChart.items[2].title,
                             color: "#06AD4B",

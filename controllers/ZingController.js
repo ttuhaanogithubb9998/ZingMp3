@@ -66,6 +66,11 @@ class ZingController {
             res.json(data)
         })
     }
+    getLyric(req,res){
+        ZingMp3.getLyric(req.query.id,(data)=>{
+            res.json(data)
+        })
+    }
 }
 
 module.exports = new ZingController();

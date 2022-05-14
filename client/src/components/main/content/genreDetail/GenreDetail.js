@@ -36,7 +36,7 @@ function GenreDetail({ handleChangeList, idSong, handleChangeSong }) {
     return (
         <>{
             data &&
-            <div className="text-zinc-50  ">
+            <div className="text-zinc-50 pb-[90px] ">
                 <div className="inset-x-0 top-0 h-[300px] relative" style={style}>
                     <div style={style2}></div>
                 </div>

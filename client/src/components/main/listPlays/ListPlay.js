@@ -30,6 +30,7 @@ function ListPlay({ idSong, list, changeSong }) {
     const [indexSong, setIndexSong] = useState(indexS || -1)
     const [activeList, setActiveList] = useState(false)
     const [isPlayFirst, setIsPlay] = useState(false);
+    const [dataKara, setDataKara] = useState();
 
     const [myAudio, setMyAudio] = useState();
     const [elementAudio, setEleAUdio] = useState();
@@ -53,6 +54,20 @@ function ListPlay({ idSong, list, changeSong }) {
         setIsPlay(true)
     }, [])
 
+
+    useEffect(() => {
+        if (encodeIdSong) {
+            axios.get(`/api/lyric?id=${encodeIdSong}`)
+            .then(res=>{
+                // console.log(res.data)
+                if(res.data.err===0){
+                    setDataKara(res.data.data);
+                }
+            })
+        }
+    }, [encodeIdSong])
+
+
     useEffect(() => {
         // console.log("test",encodeIdList)
         if (typeList.length > 0)
@@ -70,9 +85,6 @@ function ListPlay({ idSong, list, changeSong }) {
     }, [encodeIdList, typeList]);
 
 
-    // console.log("encodeIdSong", encodeIdSong)
-    // console.log("encodeIdList", encodeIdList)
-    // console.log("typeList", typeList)
 
 
     useEffect(() => {
@@ -142,7 +154,11 @@ function ListPlay({ idSong, list, changeSong }) {
                             <BsChevronDown />
                         </div>
                     </div>
-                   { activeList&&<Canvas fftSize={fftSize} myAudio={myAudio} />}
+                    {activeList && <Canvas
+                        fftSize={fftSize}
+                        dataKara={dataKara}
+                        myAudio={myAudio}
+                    />}
                     <List
                         dataList={dataList}
                         itemActive={encodeIdSong}
