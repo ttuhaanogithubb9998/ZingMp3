@@ -8,6 +8,7 @@ function Karaoke({ dataKara }) {
     useLayoutEffect(() => {
         const audio = document.getElementById("audio-tag-1");
         const canvas = document.getElementById("canvasKara");
+        canvas.width = canvas.parentElement.offsetWidth
         const ctx = canvas.getContext("2d");
         let idAnimation
 
@@ -75,10 +76,10 @@ function Karaoke({ dataKara }) {
             cancelAnimationFrame(idAnimation);
         }
     }, [dataKara])
-    
+
     return (
         <div>
-            <canvas id="canvasKara" width="1000" height="200" ></canvas>
+            <canvas id="canvasKara"  height="200" ></canvas>
         </div>
     );
 }
