@@ -17,14 +17,13 @@ function ItemBanner({ banner, handleChangeSong, handleChangeList }) {
         );
     if (banner.link.slice(0, 7) === "/album/")
         return (
-            <div onClick={() => event()} className="cursor-pointer rounded m-2 overflow-hidden" >
+            <div  className="cursor-pointer rounded m-2 overflow-hidden" >
                 <Link to={banner.link}>
                     <img src={banner.banner}></img>
                 </Link>
             </div>
         );
 
-    return ""
 }
 
 export default ItemBanner;
