@@ -4,14 +4,13 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import Item from '../../listPlays/list/Item'
 
 function Album({ handleChangeSong, handleChangeList, idSong }) {
-    const history = useNavigate()
     
 
     const {idAlbum} =  useParams();
     const [dataAlbum, setDataAlbum] = useState();
     const [timeUpdate, setTimeUpdate] = useState("");
     const date = new Date();
-    const format = (number) => number < 10 ? "0" + number : number;
+    const format = number => number < 10 ? "0" + number : number;
     
     useEffect(() => {
         axios.get(`api/playlist?id=${idAlbum.slice(0,8)}`)
