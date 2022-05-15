@@ -23,7 +23,7 @@ function ItemBanner({ banner, handleChangeSong, handleChangeList }) {
                 </Link>
             </div>
         );
-
+    return ""
 }
 
 export default ItemBanner;
