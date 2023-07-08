@@ -29,9 +29,12 @@ function Audio({
   }, []);
   useEffect(() => {
     if (songFailedNation) {
-      handleControls.next(audio, indexSong);
+      const btnNext = document.getElementById("btn-next");
+      if (btnNext) {
+        btnNext.click();
+      }
     }
-  }, [songFailedNation, audio, handleControls, indexSong]);
+  }, [songFailedNation]);
   useEffect(() => {
     if (audio) {
       const duration = audio.parentElement.querySelector("#duration");
@@ -304,6 +307,7 @@ function Audio({
                 <BsPauseCircle size="20px" />
               </button>
               <button
+                id="btn-next"
                 onClick={() => handleControls.next(audio, indexSong)}
                 className="mx-1 justify-center flex items-center w-[25px] h-[25px] rounded-full hover:bg-[#271b38]"
               >
