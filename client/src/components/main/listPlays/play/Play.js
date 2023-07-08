@@ -26,14 +26,11 @@ function Play({
   const [encodeIdSong, setEncodeIdSong] = useState(encodeId);
   const [status, setStatus] = useState("normal");
   const [handleControls, setHandleControls] = useState({});
-  const [songFailedNation, setSongFailed] = useState(false);
-  const [waitPromise, setWaitPromise] = useState("wait");
   useEffect(() => {
     setEncodeIdSong(encodeId);
   }, [encodeId]);
 
   useEffect(() => {
-    setWaitPromise("wait");
 
     axios.get(`/api/song?id=${encodeIdSong}`).then((res) => {
       // console.log("Play", res)
@@ -44,11 +41,10 @@ function Play({
             return { ...pre, linkSong: res.data.data[128] };
           return { ...pre, linkSong: res.data.data[320] };
         });
-        setSongFailed(false);
       } else {
-        setSongFailed(true);
+        const btnNext = document.getElementById("btn-next");
+        btnNext.click();  
       }
-      setWaitPromise("done");
     });
     axios.get(`/api/info?id=${encodeIdSong}`).then((res) => {
       // console.log("info", res.data)
@@ -168,9 +164,6 @@ function Play({
           linkThumbnail={dataAudio.linkThumbnail}
           title={dataAudio.title}
           artists={dataAudio.artists}
-          songFailedNation={songFailedNation}
-          encodeIdSong={encodeIdSong}
-          waitPromise={waitPromise}
         />
       )}
     </div>
