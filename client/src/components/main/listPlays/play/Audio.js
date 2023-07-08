@@ -8,6 +8,7 @@ import SubCanvas from "./SubCanvas";
 
 function Audio({
   songFailedNation,
+  encodeIdSong,
   activeList,
   fftSize,
   myAudio,
@@ -34,7 +35,7 @@ function Audio({
         btnNext.click();
       }
     }
-  },[songFailedNation] );
+  }, [songFailedNation,encodeIdSong]);
   useEffect(() => {
     if (audio) {
       const duration = audio.parentElement.querySelector("#duration");

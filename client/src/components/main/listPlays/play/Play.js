@@ -165,6 +165,7 @@ function Play({
           title={dataAudio.title}
           artists={dataAudio.artists}
           songFailedNation={songFailedNation}
+          encodeIdSong={encodeIdSong}
         />
       )}
     </div>
