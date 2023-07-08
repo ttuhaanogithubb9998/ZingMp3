@@ -38,7 +38,6 @@ function Banner({ dataBanner, handleChangeSong, handleChangeList }) {
                 autoPlay={true}
                 autoPlaySpeed={4000}
                 keyBoardControl={true}
-                customTransition="transform 1000ms ease-in-out"
                 transitionDuration={500}
                 containerClass="carousel-container"
                 removeArrowOnDeviceType={["tablet", "mobile"]}
