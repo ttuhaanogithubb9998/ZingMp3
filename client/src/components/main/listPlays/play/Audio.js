@@ -27,11 +27,17 @@ function Audio({
   useLayoutEffect(() => {
     setAudio(document.getElementById("audio-tag-1"));
   }, []);
-  useEffect(() => {
-    if (songFailedNation) {
-      handleControls.next(audio, indexSong);
-    }
-  });
+  useEffect(
+    () => {
+      if (songFailedNation) {
+        handleControls.next(audio, indexSong);
+      }
+    },
+    songFailedNation,
+    audio,
+    handleControls,
+    indexSong
+  );
   useEffect(() => {
     if (audio) {
       const duration = audio.parentElement.querySelector("#duration");
