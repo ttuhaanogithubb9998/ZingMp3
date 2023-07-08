@@ -30,7 +30,7 @@ function Audio({
     setAudio(document.getElementById("audio-tag-1"));
   }, []);
   useEffect(() => {
-    if (songFailedNation && waitPromise === "wait") {
+    if (songFailedNation && waitPromise === "done") {
       const btnNext = document.getElementById("btn-next");
       if (btnNext) {
         btnNext.click();
