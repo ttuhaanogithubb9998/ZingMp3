@@ -34,7 +34,7 @@ function Audio({
         btnNext.click();
       }
     }
-  },[songFailedNation,indexSong] );
+  },[songFailedNation] );
   useEffect(() => {
     if (audio) {
       const duration = audio.parentElement.querySelector("#duration");
