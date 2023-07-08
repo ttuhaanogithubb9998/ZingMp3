@@ -7,6 +7,7 @@ import { FiVolume2, FiRepeat } from "react-icons/fi";
 import SubCanvas from "./SubCanvas";
 
 function Audio({
+  waitPromise,
   songFailedNation,
   encodeIdSong,
   activeList,
@@ -29,13 +30,13 @@ function Audio({
     setAudio(document.getElementById("audio-tag-1"));
   }, []);
   useEffect(() => {
-    if (songFailedNation) {
+    if (songFailedNation && waitPromise === "wait") {
       const btnNext = document.getElementById("btn-next");
       if (btnNext) {
         btnNext.click();
       }
     }
-  }, [songFailedNation,encodeIdSong]);
+  }, [songFailedNation, encodeIdSong, waitPromise]);
   useEffect(() => {
     if (audio) {
       const duration = audio.parentElement.querySelector("#duration");
