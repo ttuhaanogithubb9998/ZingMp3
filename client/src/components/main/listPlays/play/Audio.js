@@ -7,6 +7,7 @@ import { FiVolume2, FiRepeat } from "react-icons/fi";
 import SubCanvas from "./SubCanvas";
 
 function Audio({
+  songFailedNation,
   activeList,
   fftSize,
   myAudio,
@@ -26,7 +27,14 @@ function Audio({
   useLayoutEffect(() => {
     setAudio(document.getElementById("audio-tag-1"));
   }, []);
-  
+  useEffect(() => {
+    if (songFailedNation) {
+      const btnNext = document.getElementById("btn-next");
+      if (btnNext) {
+        btnNext.click();
+      }
+    }
+  },[songFailedNation,indexSong] );
   useEffect(() => {
     if (audio) {
       const duration = audio.parentElement.querySelector("#duration");
