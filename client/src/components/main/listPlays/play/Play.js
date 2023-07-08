@@ -41,6 +41,7 @@ function Play({
             return { ...pre, linkSong: res.data.data[128] };
           return { ...pre, linkSong: res.data.data[320] };
         });
+        setSongFailed(false);
       } else {
         setSongFailed(true);
       }
