@@ -146,7 +146,7 @@ function Play({
 
   return (
     <div
-      className={`play absolute  inset-x-0 bottom-0 ${
+      className={`play absolute  inset-x-0 bottom-0 ease-in duration-300 ${
         !activeList && "bg-[#120c1c]"
       }`}
     >

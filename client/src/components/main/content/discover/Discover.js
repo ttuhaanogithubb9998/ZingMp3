@@ -23,7 +23,7 @@ function Discover({ handleChangeSong, handleChangeList,handleChangeIdAlbum }) {
                 <>
                     {data.map((item, i) => {
                         if (item.sectionId === "hSlider" && item.sectionType === "banner") {
-                            return <Banner key={i} handleChangeList={handleChangeList} handleChangeSong={handleChangeSong} dataBanner={data[0]} />
+                            return <Banner key={i} handleChangeList={handleChangeList} handleChangeSong={handleChangeSong} dataBanner={item} />
                         } else if (item.sectionType === "playlist") {
                             return <Channel handleChangeIdAlbum={handleChangeIdAlbum}   key={i} dataChannel={item} />
                         } else if (item.sectionId === "hNewrelease" && item.sectionType === "newReleaseChart") {
